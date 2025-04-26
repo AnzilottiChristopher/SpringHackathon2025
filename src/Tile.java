@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Tile
 {
     private boolean isDirty;
@@ -5,11 +7,13 @@ public class Tile
     private boolean isEnemy;
     private boolean isPlayer;
 
+    private Point position;
+
 
     //Dirty = brown, Vacuum Sprite = Player, Grey = wall, Dog Sprite = enemy
     private String color;
 
-    public Tile(boolean dirty, boolean obstacle, boolean enemy)
+    public Tile(boolean dirty, boolean obstacle, boolean enemy, int x, int y)
     {
         this.isDirty = dirty;
         this.isObstacle = obstacle;
@@ -33,6 +37,7 @@ public class Tile
         {
             this.color = "white";
         }
+        this.position = new Point(x, y);
     }
 
     public boolean isDirty()
@@ -58,5 +63,15 @@ public class Tile
     public void setColor(String color)
     {
         this.color = color;
+    }
+
+    public int getX()
+    {
+        return position.x;
+    }
+
+    public int getY()
+    {
+        return position.y;
     }
 }
