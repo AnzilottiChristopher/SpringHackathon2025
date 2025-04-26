@@ -69,7 +69,7 @@ public class Main {
         RoomPanel roomPanel = new RoomPanel(room, player);
         frame.add(roomPanel);
 
-        player.setCurrentTile(room.getTile(0,0));
+        player.setCurrentTile(room.getTile(room.getStartX(),room.getStartZ()));
 
 
         frame.revalidate();
