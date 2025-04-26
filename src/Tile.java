@@ -10,6 +10,7 @@ public class Tile
         this.dirty = dirty;
         this.obstacle = obstacle;
         this.enemy = enemy;
+        this.color = color;
     }
 
     public boolean isDirty()
@@ -32,7 +33,7 @@ public class Tile
         return color;
     }
 
-    public void setColor()
+    public void setColor(String color)
     {
         this.color = color;
     }

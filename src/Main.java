@@ -37,21 +37,22 @@ public class Main {
         quitButton.addActionListener(e -> System.exit(0));
 
         // Start Game button action
-        startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Remove everything from the frame
-                frame.getContentPane().removeAll();
-                frame.repaint();
-                frame.revalidate();
-
-                // (Optional) Add a new blank panel or whatever you want
-                JPanel gamePanel = new JPanel();
-                gamePanel.setBackground(Color.WHITE); // Just make it blank white
-                frame.add(gamePanel);
-
-                frame.revalidate();
-                frame.repaint();
-            }
+        startButton.addActionListener(e -> {
+            frame.getContentPane().removeAll();
+            frame.repaint();
+            frame.revalidate();
+        
+            Room room = new Room(10, 10); // Create a 10x10 room
+        
+            // Example: Set some tiles
+            room.getTile(2, 2).setColor("green");
+            room.getTile(5, 5).setColor("brown");
+        
+            RoomPanel roomPanel = new RoomPanel(room);
+            frame.add(roomPanel);
+        
+            frame.revalidate();
+            frame.repaint();
         });
     }
 }
