@@ -1,19 +1,21 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Room {
     private Tile[][] grid; // 2D array of tiles
     private int rows;
     private int cols;
 
-    public Room(int rows, int cols) {
+    // Constructor where you specify size
+    public Room(String filename, int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         grid = new Tile[rows][cols];
 
-        // Initialize the grid with default tiles
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols; c++) {
-                grid[r][c] = new Tile(false, false, false); // All tiles start clean and empty
-            }
-        }
+        loadFromFile(filename);
     }
 
     // Get a specific Tile
@@ -53,4 +55,59 @@ public class Room {
             }
         }
     }
+
+     private void loadFromFile(String filename) {
+
+        filename = "rooms/" + filename;
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null && lines.size() < rows) {
+                lines.add(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (int r = 0; r < rows; r++) {
+            if (r >= lines.size()) {
+                // If the file has fewer rows than expected, fill with empty tiles
+                for (int c = 0; c < cols; c++) {
+                    grid[r][c] = new Tile(false, false, false);
+                }
+                continue;
+            }
+
+            String[] tokens = lines.get(r).split("\\s+");
+            for (int c = 0; c < cols; c++) {
+                if (c >= tokens.length) {
+                    // If line has fewer columns, fill with empty tiles
+                    grid[r][c] = new Tile(false, false, false);
+                } else {
+                    int value = Integer.parseInt(tokens[c]);
+                    switch (value) {
+                        case 0:
+                            grid[r][c] = new Tile(false, false, false); // Clean floor
+                            break;
+                        case 1:
+                            grid[r][c] = new Tile(false, true, false); // Obstacle
+                            break;
+                        case 2:
+                            grid[r][c] = new Tile(false, false, true); // Enemy
+                            break;
+                        case 3:
+                            grid[r][c] = new Tile(true, false, false); // Dirty
+                            break;
+                        default:
+                            grid[r][c] = new Tile(false, false, false); // Default clean
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }
