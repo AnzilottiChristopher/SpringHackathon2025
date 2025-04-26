@@ -127,7 +127,7 @@ public class Enemy extends RobotVacuum {
         Tile closestDirt = findClosestDirty();
         if (closestDirt != null) {
             currentPath = aStar(closestDirt);
-            printDirtPath(currentPath);
+            // printDirtPath(currentPath);
             pathStep = 0;
         } else {
             currentPath = null; // No dirt left

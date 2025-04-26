@@ -69,12 +69,8 @@ public class RobotVacuum
 
     public void updatePathToClosestDirty() {
         Tile closestDirt = findClosestDirty();
-        if (closestDirt == null) {
-            System.out.println("No dirt left!");
-            return;
-        }
     
-        List<Tile> path = aStar(closestDirt);
+        // List<Tile> path = aStar(closestDirt);
         // printDirtPath(path);
     }
 
