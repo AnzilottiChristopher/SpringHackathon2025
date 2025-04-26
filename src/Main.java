@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+    private static JFrame frame;
+    private static int currentLevel = 1;
     public static void main(String[] args) {
         // Make sure GUI creation is on the Event Dispatch Thread (best practice)
         SwingUtilities.invokeLater(Main::createAndShowGUI);
@@ -9,10 +11,18 @@ public class Main {
 
     private static void createAndShowGUI() {
         // Create the window (a JFrame)
-        JFrame frame = new JFrame("Vacuum Game Menu");
+        frame = new JFrame("Vacuum Game Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 1200); // width x height
         frame.setLayout(new BorderLayout()); // Layout manager for easy placement
+
+        showMainMenu();
+
+        frame.setVisible(true);
+    }
+
+    private static void showMainMenu() {
+        frame.getContentPane().removeAll();
 
         // Create a label
         JLabel label = new JLabel("Welcome to Vacuum Cleaner Game!", SwingConstants.CENTER);
@@ -28,28 +38,54 @@ public class Main {
 
         frame.add(panel, BorderLayout.CENTER); // Add panel to center
 
-        // Make the window visible
-        frame.setVisible(true);
+        frame.revalidate();
+        frame.repaint();
 
         // Quit button action
         quitButton.addActionListener(e -> System.exit(0));
 
         // Start Game button action
-        startButton.addActionListener(e -> {
-            frame.getContentPane().removeAll();
-            frame.repaint();
-            frame.revalidate();
-        
-            Room room = new Room("room1.txt", 10, 10); // Create a 10x10 room
-            room.loadRoom();
+        startButton.addActionListener(e -> startLevel(currentLevel));
+    }
 
-            RobotVacuum player = new RobotVacuum(); // create player
-        
-            RoomPanel roomPanel = new RoomPanel(room, player);
-            frame.add(roomPanel);
-        
-            frame.revalidate();
-            frame.repaint();
-        });
+    public static void startLevel(int level) {
+        frame.getContentPane().removeAll();
+        Room room;
+        switch (level) {
+            case 1:
+                room = Resources.room1;
+                break;
+            case 2:
+                room = Resources.room2;
+                break;
+            default:
+                showWinScreen();
+                return;
+        }
+        room.loadRoom();
+
+        RobotVacuum player = new RobotVacuum(); // create player
+    
+        RoomPanel roomPanel = new RoomPanel(room, player);
+        frame.add(roomPanel);
+    
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public static void nextLevel() {
+        currentLevel++;
+        startLevel(currentLevel);
+    }
+
+    private static void showWinScreen() {
+        frame.getContentPane().removeAll();
+
+        JLabel winLabel = new JLabel("Congratulations! You have cleaned all the rooms!", SwingConstants.CENTER);
+        winLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        frame.add(winLabel, BorderLayout.CENTER);
+
+        frame.revalidate();
+        frame.repaint();
     }
 }

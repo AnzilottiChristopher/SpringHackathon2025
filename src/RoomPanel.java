@@ -92,6 +92,11 @@ public class RoomPanel extends JPanel {
                     nextTile.setDirty(false);
                 }
                 repaint();
+
+                // if robot dirt cleaned and room dirt amount is the same, go to next level
+                if (robot.getDirtCleaned() == room.getDirt()) {
+                    Main.nextLevel();
+                }
             }
         }
     }
