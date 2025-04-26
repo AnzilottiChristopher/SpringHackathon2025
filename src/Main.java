@@ -51,29 +51,26 @@ public class Main {
     public static void startLevel(int level) {
         frame.getContentPane().removeAll();
         Room room;
-        switch (level) {
-            case 1:
-                room = Resources.room1;
-                break;
-            case 2:
-                room = Resources.room2;
-                break;
-            default:
-                showWinScreen();
-                return;
+        try {
+            room = Resources.rooms[level - 1];
+            room.loadRoom();
+    
+            RobotVacuum player = new RobotVacuum(room); // create player
+    
+            RoomPanel roomPanel = new RoomPanel(room, player);
+            frame.add(roomPanel);
+    
+            int startX = room.getStartX();
+            int startZ = room.getStartZ();
+            player.setCurrentTile(room.getTile(startX,startZ));
+            player.setX(startX);
+            player.setY(startZ);
+    
+            frame.revalidate();
+            frame.repaint();
+        } catch (Exception e) {
+            showWinScreen();
         }
-        room.loadRoom();
-
-        RobotVacuum player = new RobotVacuum(room); // create player
-
-        RoomPanel roomPanel = new RoomPanel(room, player);
-        frame.add(roomPanel);
-
-        player.setCurrentTile(room.getTile(room.getStartX(),room.getStartZ()));
-
-
-        frame.revalidate();
-        frame.repaint();
     }
 
     public static void nextLevel() {

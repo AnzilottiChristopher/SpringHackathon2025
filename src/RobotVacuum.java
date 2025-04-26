@@ -44,14 +44,14 @@ public class RobotVacuum
         position = p;
     }
 
-    public void setX(Point p)
+    public void setX(int x)
     {
-        position.x = p.x;
+        position.x = x;
     }
 
-    public void setY(Point p)
+    public void setY(int y)
     {
-        position.y = p.y;
+        position.y = y;
     }
     public int getMovesTaken()
     {
