@@ -1,9 +1,57 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main
-{
-    public static void main(String[] args)
-    {//TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text// to see how IntelliJ IDEA suggests fixing it.
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+public class Main {
+    public static void main(String[] args) {
+        // Make sure GUI creation is on the Event Dispatch Thread (best practice)
+        SwingUtilities.invokeLater(Main::createAndShowGUI);
+    }
+
+    private static void createAndShowGUI() {
+        // Create the window (a JFrame)
+        JFrame frame = new JFrame("Vacuum Game Menu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1200, 1200); // width x height
+        frame.setLayout(new BorderLayout()); // Layout manager for easy placement
+
+        // Create a label
+        JLabel label = new JLabel("Welcome to Vacuum Cleaner Game!", SwingConstants.CENTER);
+        frame.add(label, BorderLayout.NORTH); // Add label to top
+
+        // Create a panel for buttons
+        JPanel panel = new JPanel();
+        JButton startButton = new JButton("Start Game");
+        JButton quitButton = new JButton("Quit");
+
+        panel.add(startButton);
+        panel.add(quitButton);
+
+        frame.add(panel, BorderLayout.CENTER); // Add panel to center
+
+        // Make the window visible
+        frame.setVisible(true);
+
+        // Quit button action
+        quitButton.addActionListener(e -> System.exit(0));
+
+        // Start Game button action
+        startButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Remove everything from the frame
+                frame.getContentPane().removeAll();
+                frame.repaint();
+                frame.revalidate();
+
+                // (Optional) Add a new blank panel or whatever you want
+                JPanel gamePanel = new JPanel();
+                gamePanel.setBackground(Color.WHITE); // Just make it blank white
+                frame.add(gamePanel);
+
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
     }
 }
