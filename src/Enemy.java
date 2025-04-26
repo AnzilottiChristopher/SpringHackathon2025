@@ -30,13 +30,7 @@ public class Enemy extends RobotVacuum {
         } else {
             moveEnemyRandom(avoidTile);
         }
-    
-        behaviorCounter++;
-    
-        if (behaviorCounter >= 3) {
-            behaviorCounter = 0;
-            useAStar = !useAStar; // Switch behavior every 3 moves
-        }
+
     }
     
     private void moveEnemyAStar(Tile avoidTile) {
@@ -109,10 +103,10 @@ public class Enemy extends RobotVacuum {
             increaseMoves();
         }
     
-        // After 5 random moves, switch back to A*
-        if (randomMoveCounter >= 5) {
+        // After 2 random moves, switch back to A*
+        if (randomMoveCounter >= 2) {
             randomMoveCounter = 0;
-            useAStar = true; // Switch back to A* after 5 random moves
+            useAStar = true; // Switch back to A* after 2 random moves
             findNewPath(); // Recalculate the path
         }
     }

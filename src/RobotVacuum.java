@@ -148,7 +148,6 @@ public class RobotVacuum
         return new ArrayList<>();
     }
 
-
     // Reconstruct the path from goal to start
     public List<Tile> reconstructPath(Node goalNode) {
         List<Tile> path = new ArrayList<>();
