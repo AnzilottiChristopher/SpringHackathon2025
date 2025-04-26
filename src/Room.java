@@ -7,15 +7,17 @@ import java.util.List;
 public class Room {
     private Tile[][] grid; // 2D array of tiles
     private String filename;
-    private int rows;
-    private int cols;
+    private int rows, cols;
     private int dirtCount;
+    private int startX, startZ;
 
     // Constructor where you specify size
-    public Room(String filename, int rows, int cols) {
+    public Room(String filename, int rows, int cols, int startX, int startZ) {
         this.rows = rows;
         this.cols = cols;
         this.filename = "rooms/" + filename;
+        this.startX = startX;
+        this.startZ = startZ;
         grid = new Tile[rows][cols];
     }
 
@@ -40,18 +42,13 @@ public class Room {
     }
 
     // get number of dirt
-    public int getDirt() {
-        return dirtCount;
-    }
+    public int getDirt() { return dirtCount; }
 
     // Getters for dimensions
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCols() {
-        return cols;
-    }
+    public int getRows() { return rows; }
+    public int getCols() { return cols; }
+    public int getStartX() { return startX; }
+    public int getStartZ() { return startZ; }
 
     // Optional: Reset the whole room
     public void resetRoom() {
@@ -113,7 +110,4 @@ public class Room {
             }
         }
     }
-
-
-
 }
