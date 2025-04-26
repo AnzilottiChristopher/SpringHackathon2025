@@ -64,7 +64,7 @@ public class RobotVacuum
 
     public void setCurrentTile(Tile t)
     {
-        currentTile = t;
+        this.currentTile = t;
     }
 
     public int heuristic(Tile start, Tile goal)
