@@ -67,6 +67,39 @@ public class RobotVacuum
         this.currentTile = t;
     }
 
+    public void updatePathToClosestDirty() {
+        Tile closestDirt = findClosestDirty();
+        if (closestDirt == null) {
+            System.out.println("No dirt left!");
+            return;
+        }
+    
+        List<Tile> path = aStar(closestDirt);
+        printDirtPath(path);
+    }
+
+
+    public Tile findClosestDirty() {
+        Tile closestDirt = null;
+        int closestDistance = Integer.MAX_VALUE;
+    
+        for (int row = 0; row < room.getRows(); row++) {
+            for (int col = 0; col < room.getCols(); col++) {
+                Tile tile = room.getTile(col, row);
+    
+                if (tile.isDirty()) {
+                    int distance = heuristic(currentTile, tile); // Manhattan distance
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestDirt = tile;
+                    }
+                }
+            }
+        }
+        return closestDirt;
+    }
+    
+
     public int heuristic(Tile start, Tile goal)
     {
         return Math.abs(start.getX() - goal.getX()) + Math.abs(start.getY() - goal.getY());
@@ -138,5 +171,38 @@ public class RobotVacuum
         if (tile.getY() < room.getRows() - 1) neighbors.add(room.getTile(tile.getX(), tile.getY() + 1));
 
         return neighbors;
+    }
+
+    private void printDirtPath(List<Tile> path) {
+        System.out.println("New Path to Dirty:");
+        if (path.isEmpty()) {
+            System.out.println("No path found.");
+            return;
+        }
+    
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < path.size() - 1; i++) {
+            Tile current = path.get(i);
+            Tile next = path.get(i + 1);
+    
+            int dy = next.getX() - current.getX();
+            int dx = next.getY() - current.getY();
+    
+            if (dx == 1) {
+                sb.append("RIGHT");
+            } else if (dx == -1) {
+                sb.append("LEFT");
+            } else if (dy == 1) {
+                sb.append("DOWN");
+            } else if (dy == -1) {
+                sb.append("UP");
+            }
+    
+            if (i != path.size() - 2) {
+                sb.append(" -> ");
+            }
+        }
+    
+        System.out.println(sb.toString());
     }
 }

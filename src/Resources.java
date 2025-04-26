@@ -10,6 +10,6 @@ public class Resources {
     static final File poop = new File("resources/poop.png");
 
     // Rooms
-    static final Room room1 = new Room("room1.txt", 10, 10);
-    static final Room room2 = new Room("room2.txt", 10, 10);
+    static final Room room1 = new Room("room1.txt", 10, 10, 0, 0);
+    static final Room room2 = new Room("room2.txt", 10, 10, 1, 1);
 }
