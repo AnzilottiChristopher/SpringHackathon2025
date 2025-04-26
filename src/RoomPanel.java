@@ -23,11 +23,8 @@ public class RoomPanel extends JPanel {
             {
                 Tile tile = room.getTile(row, col);
 
-                // Determine tile color
-                Color color = getColorFromString(tile.getColor());
-
                 // Draw tile background
-                g.setColor(color);
+                g.setColor(Color.WHITE);
                 g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
 
                 // Draw a border
@@ -51,10 +48,6 @@ public class RoomPanel extends JPanel {
                 if (robot != null)
                 {
                     g.drawImage(robot.getSprite(), robot.getPosition().x * tileSize, robot.getPosition().y * tileSize, tileSize, tileSize, this);
-                } else
-                {
-                    g.setColor(Color.BLUE);
-                    g.fillOval(robot.getPosition().x * tileSize, robot.getPosition().y * tileSize, tileSize, tileSize);
                 }
             }
         }
@@ -83,22 +76,6 @@ public class RoomPanel extends JPanel {
                 }
                 repaint();
             }
-        }
-    }
-    
-    private Color getColorFromString(String colorName) {
-        // A simple helper to map strings to actual colors
-        switch (colorName.toLowerCase()) {
-            case "white":
-                return Color.WHITE;
-            case "gray":
-                return Color.GRAY;
-            case "green":
-                return Color.GREEN;
-            case "brown":
-                return new Color(139, 69, 19); // brown RGB
-            default:
-                return Color.LIGHT_GRAY; // default if unknown
         }
     }
 

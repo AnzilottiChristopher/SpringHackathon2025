@@ -14,25 +14,6 @@ public class Tile
         this.isDirty = dirty;
         this.isObstacle = obstacle;
         this.isEnemy = enemy;
-        if (isDirty())
-        {
-            this.color = "brown";
-        }
-        else if (isObstacle())
-        {
-            this.color = "grey";
-        }
-        else if (isPlayer)
-        {
-            this.color = "spritePlayer";
-        }
-        else if (isEnemy())
-        {
-            this.color = "spriteDog";
-        } else
-        {
-            this.color = "white";
-        }
     }
 
     public boolean isDirty()
