@@ -64,7 +64,8 @@ public class Main {
         }
         room.loadRoom();
 
-        RobotVacuum player = new RobotVacuum(); // create player
+        RobotVacuum player = new RobotVacuum(room); // create player
+        player.setCurrentTile(room.getTile(0,0));
     
         RoomPanel roomPanel = new RoomPanel(room, player);
         frame.add(roomPanel);

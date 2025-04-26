@@ -57,7 +57,7 @@ public class Room {
     public void resetRoom() {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                grid[r][c] = new Tile(false, false, false);
+                grid[r][c] = new Tile(false, false, false, r, c);
             }
         }
     }
@@ -79,7 +79,7 @@ public class Room {
             if (r >= lines.size()) {
                 // If the file has fewer rows than expected, fill with empty tiles
                 for (int c = 0; c < cols; c++) {
-                    grid[r][c] = new Tile(false, false, false);
+                    grid[r][c] = new Tile(false, false, false, r, c);
                 }
                 continue;
             }
@@ -88,25 +88,25 @@ public class Room {
             for (int c = 0; c < cols; c++) {
                 if (c >= tokens.length) {
                     // If line has fewer columns, fill with empty tiles
-                    grid[r][c] = new Tile(false, false, false);
+                    grid[r][c] = new Tile(false, false, false, r, c);
                 } else {
                     int value = Integer.parseInt(tokens[c]);
                     switch (value) {
                         case 0:
-                            grid[r][c] = new Tile(false, false, false); // Clean floor
+                            grid[r][c] = new Tile(false, false, false, r ,c); // Clean floor
                             break;
                         case 1:
-                            grid[r][c] = new Tile(false, true, false); // Obstacle
+                            grid[r][c] = new Tile(false, true, false, r, c); // Obstacle
                             break;
                         case 2:
-                            grid[r][c] = new Tile(false, false, true); // Enemy
+                            grid[r][c] = new Tile(false, false, true, r, c); // Enemy
                             break;
                         case 3:
-                            grid[r][c] = new Tile(true, false, false); // Dirty
+                            grid[r][c] = new Tile(true, false, false, r, c); // Dirty
                             dirtCount++;
                             break;
                         default:
-                            grid[r][c] = new Tile(false, false, false); // Default clean
+                            grid[r][c] = new Tile(false, false, false, r, c); // Default clean
                             break;
                     }
                 }

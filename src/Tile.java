@@ -1,13 +1,21 @@
+import java.awt.*;
+
 public class Tile
 {
     private boolean isDirty;
     private boolean isObstacle;
     private boolean isEnemy;
+    private boolean isPlayer;
 
-    public Tile(boolean dirty, boolean obstacle, boolean enemy) {
+    private Point position;
+
+
+    public Tile(boolean dirty, boolean obstacle, boolean enemy, int x, int y)
+    {
         this.isDirty = dirty;
         this.isObstacle = obstacle;
         this.isEnemy = enemy;
+        this.position = new Point(x, y);
     }
 
     public boolean isDirty() {
@@ -24,5 +32,14 @@ public class Tile
 
     public boolean isObstacle() {
         return isObstacle;
+    }
+    public int getX()
+    {
+        return position.x;
+    }
+
+    public int getY()
+    {
+        return position.y;
     }
 }
