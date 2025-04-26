@@ -9,6 +9,8 @@ public class Resources {
     static final File dirt = new File("resources/dirt.png");
     static final File poop = new File("resources/poop.png");
 
+    static final File titleImage = new File("resources/title.png");
+
     // Rooms
     static final Room[] rooms = {
         new Room("room1.txt", 10, 10, 0, 0),
