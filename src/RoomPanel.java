@@ -2,15 +2,34 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomPanel extends JPanel {
     private Room room;
     private int tileSize = 64; // Size of each tile in pixels
     private RobotVacuum robot;
 
+    private List<Enemy> enemies = new ArrayList<>();
+
     public RoomPanel(Room room, RobotVacuum robot) {
         this.room = room;
         this.robot = robot;
+
+        List<Enemy> enemies = new ArrayList<>();
+
+        for (int y = 0; y < room.getRows(); y++) {
+            for (int x = 0; x < room.getCols(); x++) {
+                Tile tile = room.getTile(x, y);
+
+                // If the tile is marked as an enemy starting point
+                if (tile.isEnemy()) {
+                    Enemy enemy = new Enemy(room, tile); // create an enemy at this tile
+                    enemies.add(enemy);
+                }
+            }
+        }
+
         setPreferredSize(new Dimension(room.getCols() * tileSize, room.getRows() * tileSize));
         setupKeyBindings();
     }
@@ -93,6 +112,11 @@ public class RoomPanel extends JPanel {
                 }
                 robot.setCurrentTile(nextTile); // update tile
                 robot.updatePathToClosestDirty(); // update path
+
+
+                for (Enemy enemy : enemies) {
+                    enemy.moveEnemy();
+                }
                 repaint();
 
                 // if robot dirt cleaned and room dirt amount is the same, go to next level

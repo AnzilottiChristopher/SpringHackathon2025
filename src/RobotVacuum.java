@@ -15,7 +15,7 @@ public class RobotVacuum
     private BufferedImage sprite;
     private Tile currentTile;
     private int dirtCleaned;
-    private Room room;
+    protected Room room;
 
     public RobotVacuum(Room room)
     {
@@ -162,7 +162,7 @@ public class RobotVacuum
         return path;
     }
 
-    private List<Tile> getNeighbors(Tile tile) {
+    public List<Tile> getNeighbors(Tile tile) {
         List<Tile> neighbors = new ArrayList<>();
 
         if (tile.getX() > 0) neighbors.add(room.getTile(tile.getX() - 1, tile.getY()));
@@ -173,7 +173,7 @@ public class RobotVacuum
         return neighbors;
     }
 
-    private void printDirtPath(List<Tile> path) {
+    public void printDirtPath(List<Tile> path) {
         System.out.println("New Path to Dirty:");
         if (path.isEmpty()) {
             System.out.println("No path found.");
