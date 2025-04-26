@@ -4,6 +4,7 @@ public class RobotVacuum
 {
     private int movesTaken;
     private Point position;
+    private int dirtCleaned;
 
     public RobotVacuum()
     {
@@ -36,6 +37,14 @@ public class RobotVacuum
     public void increaseMoves()
     {
         movesTaken++;
+    }
+
+    public void cleanDirt() {
+        dirtCleaned++;
+    }
+
+    public int getDirtCleaned() {
+        return dirtCleaned;
     }
 
     public Point aStar()

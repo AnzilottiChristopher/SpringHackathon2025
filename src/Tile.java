@@ -40,6 +40,10 @@ public class Tile
         return isDirty;
     }
 
+    public void setDirty(boolean dirty) {
+        this.isDirty = dirty;
+    }
+
     public boolean isEnemy()
     {
         return isEnemy;

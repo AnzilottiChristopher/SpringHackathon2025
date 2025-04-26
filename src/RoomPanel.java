@@ -52,6 +52,48 @@ public class RoomPanel extends JPanel {
         }
     }
 
+    private void moveRobot(int dx, int dy) {
+        Point pos = robot.getPosition();
+        int newX = pos.x + dx;
+        int newY = pos.y + dy;
+    
+        // Check bounds
+        if (newX >= 0 && newX < room.getCols() && newY >= 0 && newY < room.getRows()) {
+    
+            // Get the tile BEFORE moving
+            Tile nextTile = room.getTile(newY, newX); // NOTE: newY first, then newX
+            
+            // If tile is not obstacle or enemy, move
+            if (!(nextTile.isObstacle() || nextTile.isEnemy())) {
+                robot.setPosition(new Point(newX, newY));
+                robot.increaseMoves();
+
+                // if it's a dirty tile, clean it
+                if (nextTile.isDirty()) {
+                    robot.cleanDirt();
+                    nextTile.setDirty(false);
+                }
+                repaint();
+            }
+        }
+    }
+    
+    private Color getColorFromString(String colorName) {
+        // A simple helper to map strings to actual colors
+        switch (colorName.toLowerCase()) {
+            case "white":
+                return Color.WHITE;
+            case "gray":
+                return Color.GRAY;
+            case "green":
+                return Color.GREEN;
+            case "brown":
+                return new Color(139, 69, 19); // brown RGB
+            default:
+                return Color.LIGHT_GRAY; // default if unknown
+        }
+    }
+
     private void setupKeyBindings() {
         // Get input and action maps
         InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -96,41 +138,5 @@ public class RoomPanel extends JPanel {
                 moveRobot(1, 0);
             }
         });
-    }
-
-    private void moveRobot(int dx, int dy) {
-        Point pos = robot.getPosition();
-        int newX = pos.x + dx;
-        int newY = pos.y + dy;
-    
-        // Check bounds
-        if (newX >= 0 && newX < room.getCols() && newY >= 0 && newY < room.getRows()) {
-    
-            // Get the tile BEFORE moving
-            Tile nextTile = room.getTile(newY, newX); // NOTE: newY first, then newX
-            
-            // If tile is not obstacle or enemy, move
-            if (!(nextTile.isObstacle() || nextTile.isEnemy())) {
-                robot.setPosition(new Point(newX, newY));
-                robot.increaseMoves();
-                repaint();
-            }
-        }
-    }
-    
-    private Color getColorFromString(String colorName) {
-        // A simple helper to map strings to actual colors
-        switch (colorName.toLowerCase()) {
-            case "white":
-                return Color.WHITE;
-            case "gray":
-                return Color.GRAY;
-            case "green":
-                return Color.GREEN;
-            case "brown":
-                return new Color(139, 69, 19); // brown RGB
-            default:
-                return Color.LIGHT_GRAY; // default if unknown
-        }
     }
 }
