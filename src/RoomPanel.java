@@ -16,8 +16,6 @@ public class RoomPanel extends JPanel {
         this.room = room;
         this.robot = robot;
 
-        List<Enemy> enemies = new ArrayList<>();
-
         for (int y = 0; y < room.getRows(); y++) {
             for (int x = 0; x < room.getCols(); x++) {
                 Tile tile = room.getTile(x, y);
@@ -62,21 +60,29 @@ public class RoomPanel extends JPanel {
                 {
                     // obstacle
                     //g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
-                } else if (tile.isEnemy())
-                {
-                    // enemy
-                    try {
-                        g.drawImage(ImageIO.read(Resources.dog), col * tileSize, row * tileSize, tileSize, tileSize, this);
-                    } catch (Exception e) {
-                        g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
-                    }
-                } else if (tile.isDirty())
+                } 
+
+                 else if (tile.isDirty())
                 {
                     // dirty image
                     try {
                         g.drawImage(ImageIO.read(Resources.dirt), col * tileSize, row * tileSize, tileSize, tileSize, this);
                     } catch (Exception e) {
                         g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    }
+                }
+                
+                // draw enemies
+                // Draw the enemies
+                for (Enemy enemy : enemies) {
+                    if (enemy != null) {
+                        Point pos = enemy.getPosition();
+                        try {
+                            g.drawImage(ImageIO.read(Resources.dog), pos.x * tileSize, pos.y * tileSize, tileSize, tileSize, this);
+                        } catch (Exception e) {
+                            g.setColor(Color.RED);
+                            g.drawString("E", pos.x * tileSize + tileSize / 2 - 5, pos.y * tileSize + tileSize / 2 + 5);
+                        }
                     }
                 }
 
@@ -115,7 +121,7 @@ public class RoomPanel extends JPanel {
 
 
                 for (Enemy enemy : enemies) {
-                    enemy.moveEnemy();
+                    enemy.moveEnemy(nextTile);
                 }
                 repaint();
 

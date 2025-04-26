@@ -75,7 +75,7 @@ public class RobotVacuum
         }
     
         List<Tile> path = aStar(closestDirt);
-        printDirtPath(path);
+        // printDirtPath(path);
     }
 
 

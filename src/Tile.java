@@ -29,6 +29,10 @@ public class Tile
         return isEnemy;
     }
 
+    public void setEnemy(boolean enemy) {
+        this.isEnemy = enemy;
+    }
+
     public boolean isObstacle() {
         return isObstacle;
     }
