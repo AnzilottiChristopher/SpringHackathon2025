@@ -1,8 +1,8 @@
 public class Tile
 {
-    private boolean dirty;
-    private boolean obstacle;
-    private boolean enemy;
+    private boolean isDirty;
+    private boolean isObstacle;
+    private boolean isEnemy;
     private boolean isPlayer;
 
 
@@ -11,9 +11,9 @@ public class Tile
 
     public Tile(boolean dirty, boolean obstacle, boolean enemy)
     {
-        this.dirty = dirty;
-        this.obstacle = obstacle;
-        this.enemy = enemy;
+        this.isDirty = dirty;
+        this.isObstacle = obstacle;
+        this.isEnemy = enemy;
         if (isDirty())
         {
             this.color = "brown";
@@ -37,17 +37,17 @@ public class Tile
 
     public boolean isDirty()
     {
-        return dirty;
+        return isDirty;
     }
 
     public boolean isEnemy()
     {
-        return enemy;
+        return isEnemy;
     }
 
     public boolean isObstacle()
     {
-        return obstacle;
+        return isObstacle;
     }
 
     public String getColor()
