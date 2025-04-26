@@ -117,7 +117,7 @@ public class RoomPanel extends JPanel {
                     nextTile.setDirty(false);
                 }
                 robot.setCurrentTile(nextTile); // update tile
-                robot.updatePathToClosestDirty(); // update path
+                // robot.updatePathToClosestDirty(); // update path if a star is being used
 
 
                 for (Enemy enemy : enemies) {

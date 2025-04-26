@@ -67,12 +67,12 @@ public class RobotVacuum
         this.currentTile = t;
     }
 
-    public void updatePathToClosestDirty() {
-        Tile closestDirt = findClosestDirty();
+    // public void updatePathToClosestDirty() {
+    //     Tile closestDirt = findClosestDirty();
     
-        // List<Tile> path = aStar(closestDirt);
-        // printDirtPath(path);
-    }
+    //     // List<Tile> path = aStar(closestDirt);
+    //     // printDirtPath(path);
+    // }
 
 
     public Tile findClosestDirty() {

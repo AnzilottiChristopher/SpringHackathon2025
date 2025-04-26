@@ -9,7 +9,6 @@ public class Enemy extends RobotVacuum {
     private int pathStep;
     private Tile tile;
 
-    private int behaviorCounter = 0; // Counts moves under current behavior
     private boolean useAStar = true; // true = use A*, false = wander randomly
     private final Random random = new Random();
     private int randomMoveCounter = 0; // Counter for random moves
