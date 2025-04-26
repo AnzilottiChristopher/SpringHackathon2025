@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class RobotVacuum
@@ -17,7 +16,7 @@ public class RobotVacuum
         position = new Point(0, 0);
 
         try {
-            sprite = ImageIO.read(new File("resources/vacuum.png")); // or wherever your robot image is
+            sprite = ImageIO.read(Resources.vacuum); // or wherever your robot image is
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,12 @@ public class RoomPanel extends JPanel {
                 Tile tile = room.getTile(row, col);
 
                 // Draw tile background
-                g.setColor(Color.WHITE);
+                if (tile.isObstacle()) {
+                    g.setColor(Color.GRAY);
+                } else {
+                    g.setColor(Color.WHITE);
+                }
+                
                 g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
 
                 // Draw a border
@@ -35,13 +41,24 @@ public class RoomPanel extends JPanel {
                 g.setColor(Color.BLACK);
                 if (tile.isObstacle())
                 {
-                    g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // obstacle
+                    //g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
                 } else if (tile.isEnemy())
                 {
-                    g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // enemy
+                    try {
+                        g.drawImage(ImageIO.read(Resources.dog), col * tileSize, row * tileSize, tileSize, tileSize, this);
+                    } catch (Exception e) {
+                        g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    }
                 } else if (tile.isDirty())
                 {
-                    g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // dirty image
+                    try {
+                        g.drawImage(ImageIO.read(Resources.dirt), col * tileSize, row * tileSize, tileSize, tileSize, this);
+                    } catch (Exception e) {
+                        g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    }
                 }
 
                 // draw the robot 
@@ -124,4 +141,6 @@ public class RoomPanel extends JPanel {
             }
         });
     }
+
+
 }
