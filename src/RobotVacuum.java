@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class RobotVacuum
 {
@@ -13,11 +15,13 @@ public class RobotVacuum
     private BufferedImage sprite;
     private Tile currentTile;
     private int dirtCleaned;
+    private Room room;
 
-    public RobotVacuum()
+    public RobotVacuum(Room room)
     {
         movesTaken = 0;
         position = new Point(0, 0);
+        this.room = room;
 
         try {
             sprite = ImageIO.read(Resources.vacuum); // or wherever your robot image is
@@ -76,12 +80,60 @@ public class RobotVacuum
     }
 
 
-    public Point aStar(Tile GoalTile)
+    public List<Tile> aStar(Tile goalTile)
     {
         PriorityQueue<Node> openList = new PriorityQueue<>();
-        Set<Node> closedList = new HashSet<>();
+        Set<String> closedList = new HashSet<>();
+        Node startNode = new Node(currentTile, 0, heuristic(currentTile, goalTile), null);
+        openList.add(startNode);
 
-       // Node startNode = new Node(currentTile)
-        return null;
+        while(!openList.isEmpty())
+        {
+            Node currentNode = openList.poll();
+
+            if (currentNode.tile.equals(goalTile))
+            {
+                return reconstructPath(currentNode);
+            }
+            closedList.add(currentNode.toString());
+
+            for(Tile neighbor : getNeighbors(currentNode.tile))
+            {
+                if (neighbor.isEnemy() || neighbor.isObstacle() || closedList.contains(neighbor.toString()))
+                {
+                    continue;
+                }
+                int newGCost = currentNode.gCost + 1;
+                Node neighborNode = new Node(neighbor, newGCost, heuristic(neighbor, goalTile), currentNode);
+                openList.add(neighborNode);
+            }
+
+        }
+        return new ArrayList<>();
+    }
+
+
+    // Reconstruct the path from goal to start
+    public List<Tile> reconstructPath(Node goalNode) {
+        List<Tile> path = new ArrayList<>();
+        Node currentNode = goalNode;
+
+        while (currentNode != null) {
+            path.add(0, currentNode.tile); // Add at the beginning of the list
+            currentNode = currentNode.parent;
+        }
+
+        return path;
+    }
+
+    private List<Tile> getNeighbors(Tile tile) {
+        List<Tile> neighbors = new ArrayList<>();
+
+        if (tile.getX() > 0) neighbors.add(room.getTile(tile.getX() - 1, tile.getY()));
+        if (tile.getX() < room.getCols() - 1) neighbors.add(room.getTile(tile.getX() + 1, tile.getY()));
+        if (tile.getY() > 0) neighbors.add(room.getTile(tile.getX(), tile.getY() - 1));
+        if (tile.getY() < room.getRows() - 1) neighbors.add(room.getTile(tile.getX(), tile.getY() + 1));
+
+        return neighbors;
     }
 }
