@@ -19,7 +19,8 @@ public class RoomPanel extends JPanel {
         super.paintComponent(g);
 
         for (int row = 0; row < room.getRows(); row++) {
-            for (int col = 0; col < room.getCols(); col++) {
+            for (int col = 0; col < room.getCols(); col++)
+            {
                 Tile tile = room.getTile(row, col);
 
                 // Determine tile color
@@ -35,16 +36,23 @@ public class RoomPanel extends JPanel {
 
                 // Optional: mark enemies, obstacles, dirty tiles with symbols
                 g.setColor(Color.BLACK);
-                if (tile.isObstacle()) {
+                if (tile.isObstacle())
+                {
                     g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
-                } else if (tile.isEnemy()) {
+                } else if (tile.isEnemy())
+                {
                     g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
-                } else if (tile.isDirty()) {
+                } else if (tile.isDirty())
+                {
                     g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
                 }
 
                 // draw the robot 
-                if (robot != null) {
+                if (robot != null)
+                {
+                    g.drawImage(robot.getSprite(), robot.getPosition().x * tileSize, robot.getPosition().y * tileSize, tileSize, tileSize, this);
+                } else
+                {
                     g.setColor(Color.BLUE);
                     g.fillOval(robot.getPosition().x * tileSize, robot.getPosition().y * tileSize, tileSize, tileSize);
                 }
