@@ -13,6 +13,7 @@ public class Resources {
     static final Room[] rooms = {
         new Room("room1.txt", 10, 10, 0, 0),
         new Room("room2.txt", 10, 10, 1, 1),
-        new Room("room3.txt", 10, 14, 1, 8)
+        new Room("room3.txt", 10, 10, 1, 8),
+        new Room("room4.txt", 10, 10, 9, 9)
     };
 }
