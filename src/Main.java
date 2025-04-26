@@ -43,7 +43,8 @@ public class Main {
             Room room = new Room("room1.txt", 10, 10); // Create a 10x10 room
             RobotVacuum player = new RobotVacuum(room); // create player
             player.setCurrentTile(room.getTile(0,0));
-        
+            room.loadRoom();
+
             RoomPanel roomPanel = new RoomPanel(room, player);
             frame.add(roomPanel);
         

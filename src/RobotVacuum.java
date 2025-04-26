@@ -79,6 +79,9 @@ public class RobotVacuum
         return dirtCleaned;
     }
 
+    public void resetDirtCleaned() {
+        dirtCleaned = 0;
+    }
 
     public List<Tile> aStar(Tile goalTile)
     {

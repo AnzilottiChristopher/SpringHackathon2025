@@ -18,8 +18,7 @@ public class Tile
         this.position = new Point(x, y);
     }
 
-    public boolean isDirty()
-    {
+    public boolean isDirty() {
         return isDirty;
     }
 
@@ -27,13 +26,11 @@ public class Tile
         this.isDirty = dirty;
     }
 
-    public boolean isEnemy()
-    {
+    public boolean isEnemy() {
         return isEnemy;
     }
 
-    public boolean isObstacle()
-    {
+    public boolean isObstacle() {
         return isObstacle;
     }
     public int getX()
