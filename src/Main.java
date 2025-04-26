@@ -1,5 +1,7 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Main {
     private static JFrame frame;
@@ -24,9 +26,17 @@ public class Main {
     private static void showMainMenu() {
         frame.getContentPane().removeAll();
 
-        // Create a label
-        JLabel label = new JLabel("Welcome to Vacuum Cleaner Game!", SwingConstants.CENTER);
-        frame.add(label, BorderLayout.NORTH); // Add label to top
+        try {
+            JPanel imagePanel = new JPanel();
+            Image image = ImageIO.read(Resources.titleImage);
+            ImageIcon imageIcon = new ImageIcon(image); // <- your image path here
+            JLabel titleImage = new JLabel(imageIcon, SwingConstants.CENTER);
+            imagePanel.add(titleImage, BorderLayout.CENTER);
+            frame.add(imagePanel,BorderLayout.CENTER);
+        } catch (Exception e) {
+            // no image do nothing
+            System.err.println(e.getMessage());
+        }
 
         // Create a panel for buttons
         JPanel panel = new JPanel();
@@ -36,7 +46,7 @@ public class Main {
         panel.add(startButton);
         panel.add(quitButton);
 
-        frame.add(panel, BorderLayout.CENTER); // Add panel to center
+        frame.add(panel, BorderLayout.SOUTH); // Add panel to center
 
         frame.revalidate();
         frame.repaint();
