@@ -6,16 +6,17 @@ import java.util.List;
 
 public class Room {
     private Tile[][] grid; // 2D array of tiles
+    private String filename;
     private int rows;
     private int cols;
+    private int dirtCount;
 
     // Constructor where you specify size
     public Room(String filename, int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
+        this.filename = "rooms/" + filename;
         grid = new Tile[rows][cols];
-
-        loadFromFile(filename);
     }
 
     // Get a specific Tile
@@ -38,6 +39,11 @@ public class Room {
         return row >= 0 && row < rows && col >= 0 && col < cols;
     }
 
+    // get number of dirt
+    public int getDirt() {
+        return dirtCount;
+    }
+
     // Getters for dimensions
     public int getRows() {
         return rows;
@@ -56,10 +62,9 @@ public class Room {
         }
     }
 
-     private void loadFromFile(String filename) {
-
-        filename = "rooms/" + filename;
+     public void loadRoom() {
         List<String> lines = new ArrayList<>();
+        dirtCount = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -98,6 +103,7 @@ public class Room {
                             break;
                         case 3:
                             grid[r][c] = new Tile(true, false, false); // Dirty
+                            dirtCount++;
                             break;
                         default:
                             grid[r][c] = new Tile(false, false, false); // Default clean

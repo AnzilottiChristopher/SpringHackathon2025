@@ -41,6 +41,8 @@ public class Main {
             frame.revalidate();
         
             Room room = new Room("room1.txt", 10, 10); // Create a 10x10 room
+            room.loadRoom();
+
             RobotVacuum player = new RobotVacuum(); // create player
         
             RoomPanel roomPanel = new RoomPanel(room, player);

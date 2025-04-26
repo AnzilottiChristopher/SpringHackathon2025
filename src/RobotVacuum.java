@@ -62,6 +62,10 @@ public class RobotVacuum
         return dirtCleaned;
     }
 
+    public void resetDirtCleaned() {
+        dirtCleaned = 0;
+    }
+    
     public Point aStar()
     {
         return null;

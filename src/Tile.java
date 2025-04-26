@@ -3,17 +3,14 @@ public class Tile
     private boolean isDirty;
     private boolean isObstacle;
     private boolean isEnemy;
-    private boolean isPlayer;
 
-    public Tile(boolean dirty, boolean obstacle, boolean enemy)
-    {
+    public Tile(boolean dirty, boolean obstacle, boolean enemy) {
         this.isDirty = dirty;
         this.isObstacle = obstacle;
         this.isEnemy = enemy;
     }
 
-    public boolean isDirty()
-    {
+    public boolean isDirty() {
         return isDirty;
     }
 
@@ -21,13 +18,11 @@ public class Tile
         this.isDirty = dirty;
     }
 
-    public boolean isEnemy()
-    {
+    public boolean isEnemy() {
         return isEnemy;
     }
 
-    public boolean isObstacle()
-    {
+    public boolean isObstacle() {
         return isObstacle;
     }
 }
