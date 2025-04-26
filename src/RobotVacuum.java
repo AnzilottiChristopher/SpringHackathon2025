@@ -1,7 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -13,15 +12,15 @@ public class RobotVacuum
     private Point position;
     private BufferedImage sprite;
     private Tile currentTile;
+    private int dirtCleaned;
 
     public RobotVacuum()
     {
         movesTaken = 0;
         position = new Point(0, 0);
 
-
         try {
-            sprite = ImageIO.read(new File("resources/vacuum.png")); // or wherever your robot image is
+            sprite = ImageIO.read(Resources.vacuum); // or wherever your robot image is
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,6 +67,14 @@ public class RobotVacuum
     {
         return Math.abs(start.getX() - goal.getX()) + Math.abs(start.getY() - goal.getY());
     }
+    public void cleanDirt() {
+        dirtCleaned++;
+    }
+
+    public int getDirtCleaned() {
+        return dirtCleaned;
+    }
+
 
     public Point aStar(Tile GoalTile)
     {

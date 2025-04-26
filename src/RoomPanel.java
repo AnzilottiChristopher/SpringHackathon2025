@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,11 +24,13 @@ public class RoomPanel extends JPanel {
             {
                 Tile tile = room.getTile(row, col);
 
-                // Determine tile color
-                Color color = getColorFromString(tile.getColor());
-
                 // Draw tile background
-                g.setColor(color);
+                if (tile.isObstacle()) {
+                    g.setColor(Color.GRAY);
+                } else {
+                    g.setColor(Color.WHITE);
+                }
+                
                 g.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
 
                 // Draw a border
@@ -38,24 +41,57 @@ public class RoomPanel extends JPanel {
                 g.setColor(Color.BLACK);
                 if (tile.isObstacle())
                 {
-                    g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // obstacle
+                    //g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
                 } else if (tile.isEnemy())
                 {
-                    g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // enemy
+                    try {
+                        g.drawImage(ImageIO.read(Resources.dog), col * tileSize, row * tileSize, tileSize, tileSize, this);
+                    } catch (Exception e) {
+                        g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    }
                 } else if (tile.isDirty())
                 {
-                    g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // dirty image
+                    try {
+                        g.drawImage(ImageIO.read(Resources.dirt), col * tileSize, row * tileSize, tileSize, tileSize, this);
+                    } catch (Exception e) {
+                        g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    }
                 }
 
                 // draw the robot 
                 if (robot != null)
                 {
                     g.drawImage(robot.getSprite(), robot.getPosition().x * tileSize, robot.getPosition().y * tileSize, tileSize, tileSize, this);
-                } else
-                {
-                    g.setColor(Color.BLUE);
-                    g.fillOval(robot.getPosition().x * tileSize, robot.getPosition().y * tileSize, tileSize, tileSize);
                 }
+            }
+        }
+    }
+
+    private void moveRobot(int dx, int dy) {
+        Point pos = robot.getPosition();
+        int newX = pos.x + dx;
+        int newY = pos.y + dy;
+    
+        // Check bounds
+        if (newX >= 0 && newX < room.getCols() && newY >= 0 && newY < room.getRows()) {
+    
+            // Get the tile BEFORE moving
+            Tile nextTile = room.getTile(newY, newX); // NOTE: newY first, then newX
+            
+            // If tile is not obstacle or enemy, move
+            if (!(nextTile.isObstacle() || nextTile.isEnemy())) {
+                robot.setPosition(new Point(newX, newY));
+                robot.increaseMoves();
+
+                // if it's a dirty tile, clean it
+                if (nextTile.isDirty()) {
+                    robot.cleanDirt();
+                    nextTile.setDirty(false);
+                }
+                repaint();
             }
         }
     }
@@ -106,39 +142,5 @@ public class RoomPanel extends JPanel {
         });
     }
 
-    private void moveRobot(int dx, int dy) {
-        Point pos = robot.getPosition();
-        int newX = pos.x + dx;
-        int newY = pos.y + dy;
-    
-        // Check bounds
-        if (newX >= 0 && newX < room.getCols() && newY >= 0 && newY < room.getRows()) {
-    
-            // Get the tile BEFORE moving
-            Tile nextTile = room.getTile(newY, newX); // NOTE: newY first, then newX
-            
-            // If tile is not obstacle or enemy, move
-            if (!(nextTile.isObstacle() || nextTile.isEnemy())) {
-                robot.setPosition(new Point(newX, newY));
-                robot.increaseMoves();
-                repaint();
-            }
-        }
-    }
-    
-    private Color getColorFromString(String colorName) {
-        // A simple helper to map strings to actual colors
-        switch (colorName.toLowerCase()) {
-            case "white":
-                return Color.WHITE;
-            case "gray":
-                return Color.GRAY;
-            case "green":
-                return Color.GREEN;
-            case "brown":
-                return new Color(139, 69, 19); // brown RGB
-            default:
-                return Color.LIGHT_GRAY; // default if unknown
-        }
-    }
+
 }
