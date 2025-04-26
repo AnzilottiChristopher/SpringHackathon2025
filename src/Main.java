@@ -13,7 +13,7 @@ public class Main {
         // Create the window (a JFrame)
         frame = new JFrame("Vacuum Game Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1200, 1200); // width x height
+        frame.setSize(1200, 700); // width x height
         frame.setLayout(new BorderLayout()); // Layout manager for easy placement
 
         showMainMenu();

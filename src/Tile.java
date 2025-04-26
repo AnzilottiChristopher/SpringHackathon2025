@@ -5,7 +5,6 @@ public class Tile
     private boolean isDirty;
     private boolean isObstacle;
     private boolean isEnemy;
-    private boolean isPlayer;
 
     private Point position;
 

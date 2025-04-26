@@ -91,6 +91,8 @@ public class RoomPanel extends JPanel {
                     robot.cleanDirt();
                     nextTile.setDirty(false);
                 }
+                robot.setCurrentTile(nextTile); // update tile
+                robot.updatePathToClosestDirty(); // update path
                 repaint();
 
                 // if robot dirt cleaned and room dirt amount is the same, go to next level
