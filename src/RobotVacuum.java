@@ -1,14 +1,30 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class RobotVacuum
 {
     private int movesTaken;
     private Point position;
+    private BufferedImage sprite;
 
     public RobotVacuum()
     {
         movesTaken = 0;
         position = new Point(0, 0);
+
+        try {
+            sprite = ImageIO.read(new File("resources/vacuum.png")); // or wherever your robot image is
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public BufferedImage getSprite()
+    {
+        return sprite;
     }
 
     public Point getPosition() {
