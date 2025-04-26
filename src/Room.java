@@ -11,7 +11,7 @@ public class Room {
         // Initialize the grid with default tiles
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                grid[r][c] = new Tile(false, false, false, "white"); // All tiles start clean and empty
+                grid[r][c] = new Tile(false, false, false); // All tiles start clean and empty
             }
         }
     }
@@ -49,7 +49,7 @@ public class Room {
     public void resetRoom() {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                grid[r][c] = new Tile(false, false, false, "white");
+                grid[r][c] = new Tile(false, false, false);
             }
         }
     }
