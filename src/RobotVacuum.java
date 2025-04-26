@@ -11,6 +11,10 @@ public class RobotVacuum
         position = new Point(0, 0);
     }
 
+    public Point getPosition() {
+        return position;
+    }
+
     public void setPosition(Point p)
     {
         position = p;

@@ -41,12 +41,13 @@ public class Main {
             frame.revalidate();
         
             Room room = new Room(10, 10); // Create a 10x10 room
+            RobotVacuum player = new RobotVacuum(); // create player
         
             // Example: Set some tiles
             room.getTile(2, 2).setColor("green");
             room.getTile(5, 5).setColor("brown");
         
-            RoomPanel roomPanel = new RoomPanel(room);
+            RoomPanel roomPanel = new RoomPanel(room, player);
             frame.add(roomPanel);
         
             frame.revalidate();

@@ -4,9 +4,11 @@ import java.awt.*;
 public class RoomPanel extends JPanel {
     private Room room;
     private int tileSize = 64; // Size of each tile in pixels
+    private RobotVacuum robot;
 
-    public RoomPanel(Room room) {
+    public RoomPanel(Room room, RobotVacuum robot) {
         this.room = room;
+        this.robot = robot;
         setPreferredSize(new Dimension(room.getCols() * tileSize, room.getRows() * tileSize));
     }
 
@@ -37,6 +39,12 @@ public class RoomPanel extends JPanel {
                     g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
                 } else if (tile.isDirty()) {
                     g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                }
+
+                // draw the robot 
+                if (robot != null) {
+                    g.setColor(Color.BLUE);
+                    g.fillOval(robot.getPosition().x * tileSize, robot.getPosition().y * tileSize, tileSize, tileSize);
                 }
             }
         }
