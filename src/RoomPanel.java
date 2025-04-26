@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,13 +39,24 @@ public class RoomPanel extends JPanel {
                 g.setColor(Color.BLACK);
                 if (tile.isObstacle())
                 {
-                    g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // obstacle
+                    //g.drawString("X", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
                 } else if (tile.isEnemy())
                 {
-                    g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // enemy
+                    try {
+                        g.drawImage(ImageIO.read(Resources.dog), col * tileSize, row * tileSize, tileSize, tileSize, this);
+                    } catch (Exception e) {
+                        g.drawString("E", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    }
                 } else if (tile.isDirty())
                 {
-                    g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    // dirty image
+                    try {
+                        g.drawImage(ImageIO.read(Resources.dirt), col * tileSize, row * tileSize, tileSize, tileSize, this);
+                    } catch (Exception e) {
+                        g.drawString("*", col * tileSize + tileSize / 2 - 5, row * tileSize + tileSize / 2 + 5);
+                    }
                 }
 
                 // draw the robot 
@@ -133,10 +145,6 @@ public class RoomPanel extends JPanel {
                 return Color.WHITE;
             case "gray":
                 return Color.GRAY;
-            case "green":
-                return Color.GREEN;
-            case "brown":
-                return new Color(139, 69, 19); // brown RGB
             default:
                 return Color.LIGHT_GRAY; // default if unknown
         }

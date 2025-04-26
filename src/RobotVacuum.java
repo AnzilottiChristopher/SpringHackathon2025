@@ -16,7 +16,7 @@ public class RobotVacuum
         position = new Point(0, 0);
 
         try {
-            sprite = ImageIO.read(new File("resources/vacuum.png")); // or wherever your robot image is
+            sprite = ImageIO.read(Resources.vacuum); // or wherever your robot image is
         } catch (IOException e) {
             e.printStackTrace();
         }
